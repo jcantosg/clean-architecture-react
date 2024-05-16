@@ -4,5 +4,5 @@ import App from "../../App";
 
 test("Loads and displays title", async () => {
   render(<App />);
-  await screen.getByRole("heading", { name: "Product price updater" });
+  await screen.findAllByRole("heading", { name: "Product price updater" });
 });
