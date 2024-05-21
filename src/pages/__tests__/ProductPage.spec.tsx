@@ -1,9 +1,9 @@
-import {afterAll, afterEach, beforeAll, describe, test} from "vitest";
+import { afterAll, afterEach, beforeAll, describe, test } from "vitest";
 import { render, RenderResult, screen } from "@testing-library/react";
 import { ProductsPage } from "../ProductsPage.tsx";
 import { ReactNode } from "react";
 import { AppProvider } from "../../context/AppProvider.tsx";
-import {MockWebServer} from "../../tests/MockWebServer.ts";
+import { MockWebServer } from "../../tests/MockWebServer.ts";
 import productsResponse from "./data/productsResponse.json";
 
 const mockWebServer = new MockWebServer();
@@ -18,9 +18,6 @@ describe("ProductsPage", () => {
         renderComponent(<ProductsPage />);
         await screen.findAllByRole("heading", { name: "Product price updater" });
     });
-
-
-
 });
 
 function renderComponent(component: ReactNode): RenderResult {
