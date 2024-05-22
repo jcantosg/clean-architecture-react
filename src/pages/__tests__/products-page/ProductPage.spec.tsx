@@ -4,8 +4,8 @@ import { ProductsPage } from "../../ProductsPage.tsx";
 import { ReactNode } from "react";
 import { AppProvider } from "../../../context/AppProvider.tsx";
 import { MockWebServer } from "../../../tests/MockWebServer.ts";
-import {givenAproducts, givenThereAreNoproducts} from "./ProductsPage.fixture.ts";
-import {verifyHeader} from "./ProductsPage.helpers.ts";
+import { givenAproducts, givenThereAreNoproducts } from "./ProductsPage.fixture.ts";
+import {verifyHeader, verifyRows, waitToTableIsLoaded} from "./ProductsPage.helpers.ts";
 
 const mockWebServer = new MockWebServer();
 
@@ -28,12 +28,22 @@ describe("ProductsPage", () => {
 
         expect(rows).toHaveLength(1);
 
-        verifyHeader(rows[0])
+        verifyHeader(rows[0]);
+    });
+
+    test("Should show expected header and rows in the table", async () => {
+        const products = givenAproducts(mockWebServer);
+        renderComponent(<ProductsPage />);
+        await waitToTableIsLoaded();
+
+        const allRows = await screen.findAllByRole("row");
+
+        const [header, ...rows] = allRows;
+        verifyHeader(header);
+        verifyRows(rows, products);
     });
 });
 
 function renderComponent(component: ReactNode): RenderResult {
     return render(<AppProvider>{component}</AppProvider>);
 }
-
-
