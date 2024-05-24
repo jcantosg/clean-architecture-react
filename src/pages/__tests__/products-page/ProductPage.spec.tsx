@@ -6,8 +6,10 @@ import { AppProvider } from "../../../context/AppProvider.tsx";
 import { MockWebServer } from "../../../tests/MockWebServer.ts";
 import { givenAproducts, givenThereAreNoproducts } from "./ProductsPage.fixture.ts";
 import {
-    openDialogToEditPrice, typePrice,
-    verifyDialog, verifyError,
+    openDialogToEditPrice,
+    typePrice,
+    verifyDialog,
+    verifyError,
     verifyHeader,
     verifyRows,
     waitToTableIsLoaded,
