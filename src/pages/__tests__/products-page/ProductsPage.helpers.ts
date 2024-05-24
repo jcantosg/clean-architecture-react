@@ -1,7 +1,7 @@
 import { waitFor, within, screen } from "@testing-library/react";
 import { expect } from "vitest";
 import { RemoteProduct } from "../../../api/StoreApi.ts";
-import {userEvent} from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 
 export function verifyHeader(headerRow: HTMLElement) {
     const headerScope = within(headerRow);
@@ -48,7 +48,7 @@ export async function openDialogToEditPrice(index: number): Promise<HTMLElement>
 
     const rowScope = within(row);
     await userEvent.click(rowScope.getByRole("menuitem"));
-    const updatePriceMenu = await screen.findByRole("menuitem", {name: /update price/i});
+    const updatePriceMenu = await screen.findByRole("menuitem", { name: /update price/i });
 
     await userEvent.click(updatePriceMenu);
 
@@ -62,4 +62,16 @@ export function verifyDialog(dialog: HTMLElement, product: RemoteProduct) {
     expect(image.src).toBe(product.image);
     dialogScope.getByText(product.title);
     expect(dialogScope.getByDisplayValue(product.price));
+}
+
+export async function typePrice(dialog: HTMLElement, price: string) {
+    const dialogScope = within(dialog);
+    const priceTextBox = dialogScope.getByRole("textbox", { name: /price/i });
+    await userEvent.clear(priceTextBox);
+    await userEvent.type(priceTextBox, price);
+}
+
+export async function verifyError(dialog: HTMLElement, errorMessage: string) {
+    const dialogScope = within(dialog);
+    await dialogScope.findByText(errorMessage);
 }
