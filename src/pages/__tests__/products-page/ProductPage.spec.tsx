@@ -6,11 +6,11 @@ import { AppProvider } from "../../../context/AppProvider.tsx";
 import { MockWebServer } from "../../../tests/MockWebServer.ts";
 import { givenAproducts, givenThereAreNoproducts } from "./ProductsPage.fixture.ts";
 import {
-    openDialogToEditPrice,
+    openDialogToEditPrice, savePrice,
     typePrice,
     verifyDialog,
     verifyError,
-    verifyHeader,
+    verifyHeader, verifyPriceAndStatusInRow,
     verifyRows,
     waitToTableIsLoaded,
 } from "./ProductsPage.helpers.ts";
@@ -94,6 +94,35 @@ describe("ProductsPage", () => {
             await typePrice(dialog, "1000000");
 
             await verifyError(dialog, "The max possible price is 999.99");
+        });
+
+        test("should edit price correctly and mark status as active for a price greater than 0", async () => {
+            givenAproducts(mockWebServer);
+            renderComponent(<ProductsPage />);
+            await waitToTableIsLoaded();
+
+            const dialog = await openDialogToEditPrice(0);
+            const newPrice = "100";
+
+            await typePrice(dialog, newPrice);
+
+            await savePrice(dialog);
+            await verifyPriceAndStatusInRow(0, newPrice, "active");
+        });
+
+        test("should edit price correctly and mark status as inactive for a price equal to 0", async () => {
+            givenAproducts(mockWebServer);
+            renderComponent(<ProductsPage />);
+            await waitToTableIsLoaded();
+
+            const dialog = await openDialogToEditPrice(0);
+            const newPrice = "0";
+
+            await typePrice(dialog, newPrice);
+
+            await savePrice(dialog);
+            await verifyPriceAndStatusInRow(0, newPrice, "inactive");
+
         });
     });
 });
