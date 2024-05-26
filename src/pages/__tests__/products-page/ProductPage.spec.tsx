@@ -6,11 +6,14 @@ import { AppProvider } from "../../../context/AppProvider.tsx";
 import { MockWebServer } from "../../../tests/MockWebServer.ts";
 import { givenAproducts, givenThereAreNoproducts } from "./ProductsPage.fixture.ts";
 import {
-    openDialogToEditPrice, savePrice,
+    changeToNonAdminUser,
+    openDialogToEditPrice,
+    savePrice, tryOpenDialogToEditPrice,
     typePrice,
     verifyDialog,
     verifyError,
-    verifyHeader, verifyPriceAndStatusInRow,
+    verifyHeader,
+    verifyPriceAndStatusInRow,
     verifyRows,
     waitToTableIsLoaded,
 } from "./ProductsPage.helpers.ts";
@@ -122,7 +125,18 @@ describe("ProductsPage", () => {
 
             await savePrice(dialog);
             await verifyPriceAndStatusInRow(0, newPrice, "inactive");
+        });
 
+        test("should show an error if the user is non admin", async () => {
+            givenAproducts(mockWebServer);
+            renderComponent(<ProductsPage />);
+            await waitToTableIsLoaded();
+
+            await changeToNonAdminUser();
+
+            await tryOpenDialogToEditPrice(0);
+
+            await screen.findByText(/only admin users can edit the price of a product/i);
         });
     });
 });
