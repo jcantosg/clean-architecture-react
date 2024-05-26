@@ -1,6 +1,6 @@
-import {useEffect, useState} from "react";
-import {RemoteProduct, StoreApi} from "../api/StoreApi.ts";
-import {useReload} from "../hooks/useReload.ts";
+import { useEffect, useState } from "react";
+import { RemoteProduct, StoreApi } from "../api/StoreApi.ts";
+import { useReload } from "../hooks/useReload.ts";
 
 export function useProducts(storeApi: StoreApi) {
     const [reloadKey, reload] = useReload();

@@ -11,8 +11,8 @@ import styled from "@emotion/styled";
 import { ChangeEvent, useCallback, useMemo, useState } from "react";
 import { useAppContext } from "../context/useAppContext";
 import { ConfirmationDialog } from "../components/ConfirmationDialog";
-import {buildProduct, useProducts} from "./useProducts.ts";
-import {StoreApi} from "../api/StoreApi.ts";
+import { buildProduct, useProducts } from "./useProducts.ts";
+import { StoreApi } from "../api/StoreApi.ts";
 
 const baseColumn: Partial<GridColDef<Product>> = {
     disableColumnMenu: true,
@@ -277,6 +277,5 @@ const StatusContainer = styled.div<{ status: ProductStatus }>`
     border-radius: 20px;
     width: 100px;
 `;
-
 
 const priceRegex = /^\d+(\.\d{1,2})?$/;
