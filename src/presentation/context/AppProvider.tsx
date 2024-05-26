@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AppContext, User } from "./AppContext";
+import { AppContext, User } from "./AppContext.tsx";
 
 const adminUser: User = { id: "user1", name: "Admin user", isAdmin: true };
 

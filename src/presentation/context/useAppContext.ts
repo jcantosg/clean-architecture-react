@@ -1,5 +1,5 @@
 import { useCallback, useContext } from "react";
-import { AppContext } from "./AppContext";
+import { AppContext } from "./AppContext.tsx";
 
 export function useAppContext() {
     const context = useContext(AppContext);

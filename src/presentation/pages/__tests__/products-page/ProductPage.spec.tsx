@@ -3,7 +3,7 @@ import { render, RenderResult, screen } from "@testing-library/react";
 import { ProductsPage } from "../../ProductsPage.tsx";
 import { ReactNode } from "react";
 import { AppProvider } from "../../../context/AppProvider.tsx";
-import { MockWebServer } from "../../../tests/MockWebServer.ts";
+import { MockWebServer } from "../../../../tests/MockWebServer.ts";
 import { givenAproducts, givenThereAreNoproducts } from "./ProductsPage.fixture.ts";
 import {
     changeToNonAdminUser,

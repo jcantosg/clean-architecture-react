@@ -7,8 +7,8 @@ import styled from "@emotion/styled";
 import { Button, Menu, MenuItem } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import { useAppContext } from "../context/useAppContext";
-import { User } from "../context/AppContext";
+import { useAppContext } from "../context/useAppContext.ts";
+import { User } from "../context/AppContext.tsx";
 
 export const MainAppBar: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

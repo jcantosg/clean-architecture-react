@@ -5,14 +5,14 @@ import {
     GridColDef,
     GridValueFormatterParams,
 } from "@mui/x-data-grid";
-import { Footer } from "../components/Footer";
-import { MainAppBar } from "../components/MainAppBar";
+import { Footer } from "../components/Footer.tsx";
+import { MainAppBar } from "../components/MainAppBar.tsx";
 import styled from "@emotion/styled";
 import { ChangeEvent, useCallback, useMemo, useState } from "react";
-import { useAppContext } from "../context/useAppContext";
-import { ConfirmationDialog } from "../components/ConfirmationDialog";
+import { useAppContext } from "../context/useAppContext.ts";
+import { ConfirmationDialog } from "../components/ConfirmationDialog.tsx";
 import { buildProduct, useProducts } from "./useProducts.ts";
-import { StoreApi } from "../api/StoreApi.ts";
+import { StoreApi } from "../../data/api/StoreApi.ts";
 
 const baseColumn: Partial<GridColDef<Product>> = {
     disableColumnMenu: true,
