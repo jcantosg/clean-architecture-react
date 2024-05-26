@@ -11,8 +11,10 @@ import styled from "@emotion/styled";
 import { ChangeEvent, useCallback, useMemo, useState } from "react";
 import { useAppContext } from "../context/useAppContext.ts";
 import { ConfirmationDialog } from "../components/ConfirmationDialog.tsx";
-import { buildProduct, useProducts } from "./useProducts.ts";
+import { useProducts } from "./useProducts.ts";
 import { StoreApi } from "../../data/api/StoreApi.ts";
+import {buildProduct, GetProductsUseCase} from "../../domain/GetProductsUseCase.ts";
+import {Product} from "../../domain/Product.ts";
 
 const baseColumn: Partial<GridColDef<Product>> = {
     disableColumnMenu: true,
@@ -21,9 +23,14 @@ const baseColumn: Partial<GridColDef<Product>> = {
 
 const storeApi = new StoreApi();
 
+function createGetProductsUseCase(): GetProductsUseCase {
+    return new GetProductsUseCase(storeApi);
+}
+
 export const ProductsPage: React.FC = () => {
     const { currentUser } = useAppContext();
-    const { products, reload } = useProducts(storeApi);
+    const getProductsUseCase = useMemo(() => createGetProductsUseCase(), []);
+    const { products, reload } = useProducts(getProductsUseCase);
 
     const [snackBarError, setSnackBarError] = useState<string>();
     const [snackBarSuccess, setSnackBarSuccess] = useState<string>();
@@ -260,12 +267,6 @@ const ProductImage = styled.img`
 
 type ProductStatus = "active" | "inactive";
 
-export interface Product {
-    id: number;
-    title: string;
-    image: string;
-    price: string;
-}
 
 const StatusContainer = styled.div<{ status: ProductStatus }>`
     background: ${props => (props.status === "inactive" ? "red" : "green")};
