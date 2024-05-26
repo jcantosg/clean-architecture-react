@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useReload } from "../hooks/useReload.ts";
-import {Product} from "../../domain/Product.ts";
-import {GetProductsUseCase} from "../../domain/GetProductsUseCase.ts";
+import { Product } from "../../domain/Product.ts";
+import { GetProductsUseCase } from "../../domain/GetProductsUseCase.ts";
 
 export function useProducts(getProductsUseCase: GetProductsUseCase) {
     const [reloadKey, reload] = useReload();
@@ -19,7 +19,3 @@ export function useProducts(getProductsUseCase: GetProductsUseCase) {
         reload,
     };
 }
-
-
-
-

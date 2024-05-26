@@ -13,8 +13,8 @@ import { useAppContext } from "../context/useAppContext.ts";
 import { ConfirmationDialog } from "../components/ConfirmationDialog.tsx";
 import { useProducts } from "./useProducts.ts";
 import { StoreApi } from "../../data/api/StoreApi.ts";
-import {buildProduct, GetProductsUseCase} from "../../domain/GetProductsUseCase.ts";
-import {Product} from "../../domain/Product.ts";
+import { buildProduct, GetProductsUseCase } from "../../domain/GetProductsUseCase.ts";
+import { Product } from "../../domain/Product.ts";
 
 const baseColumn: Partial<GridColDef<Product>> = {
     disableColumnMenu: true,
@@ -266,7 +266,6 @@ const ProductImage = styled.img`
 `;
 
 type ProductStatus = "active" | "inactive";
-
 
 const StatusContainer = styled.div<{ status: ProductStatus }>`
     background: ${props => (props.status === "inactive" ? "red" : "green")};
