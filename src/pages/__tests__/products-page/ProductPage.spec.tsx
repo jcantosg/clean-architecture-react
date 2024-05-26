@@ -15,7 +15,8 @@ import {
     verifyError,
     verifyHeader,
     verifyPriceAndStatusInRow,
-    verifyRows, verifySaveIsDisabled,
+    verifyRows,
+    verifySaveIsDisabled,
     waitToTableIsLoaded,
 } from "./ProductsPage.helpers.ts";
 

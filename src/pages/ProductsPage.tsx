@@ -8,11 +8,11 @@ import {
 import { Footer } from "../components/Footer";
 import { MainAppBar } from "../components/MainAppBar";
 import styled from "@emotion/styled";
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { ChangeEvent, useCallback, useMemo, useState } from "react";
 import { useAppContext } from "../context/useAppContext";
 import { ConfirmationDialog } from "../components/ConfirmationDialog";
-import { useReload } from "../hooks/useReload";
-import { RemoteProduct, StoreApi } from "../api/StoreApi";
+import {buildProduct, useProducts} from "./useProducts.ts";
+import {StoreApi} from "../api/StoreApi.ts";
 
 const baseColumn: Partial<GridColDef<Product>> = {
     disableColumnMenu: true,
@@ -23,27 +23,15 @@ const storeApi = new StoreApi();
 
 export const ProductsPage: React.FC = () => {
     const { currentUser } = useAppContext();
-    const [reloadKey, reload] = useReload();
+    const { products, reload } = useProducts(storeApi);
 
-    const [products, setProducts] = useState<Product[]>([]);
     const [snackBarError, setSnackBarError] = useState<string>();
     const [snackBarSuccess, setSnackBarSuccess] = useState<string>();
 
     const [editingProduct, setEditingProduct] = useState<Product | undefined>(undefined);
     const [priceError, setPriceError] = useState<string | undefined>(undefined);
 
-    useEffect(() => {
-        storeApi.getAll().then(response => {
-            console.debug("Reloading", reloadKey);
-
-            const remoteProducts = response as RemoteProduct[];
-
-            const products = remoteProducts.map(buildProduct);
-
-            setProducts(products);
-        });
-    }, [reloadKey]);
-
+    //FIXME: User validation
     const updatingQuantity = useCallback(
         async (id: number) => {
             if (id) {
@@ -66,10 +54,12 @@ export const ProductsPage: React.FC = () => {
         [currentUser]
     );
 
+    //FIXME: Close dialog
     const cancelEditPrice = useCallback(() => {
         setEditingProduct(undefined);
     }, []);
 
+    //FIXME: Price validation
     function handleChangePrice(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
         if (!editingProduct) return;
 
@@ -89,6 +79,7 @@ export const ProductsPage: React.FC = () => {
         }
     }
 
+    //FIXME: Save price
     async function saveEditPrice(): Promise<void> {
         if (editingProduct) {
             const remoteProduct = await storeApi.get(editingProduct.id);
@@ -118,6 +109,7 @@ export const ProductsPage: React.FC = () => {
         }
     }
 
+    //FIXME: Define Table columns
     const columns: GridColDef<Product>[] = useMemo(
         () => [
             { ...baseColumn, field: "id", headerName: "ID", width: 70 },
@@ -183,6 +175,7 @@ export const ProductsPage: React.FC = () => {
         [updatingQuantity]
     );
 
+    //FIXME: Render page content
     return (
         <Stack direction="column" sx={{ minHeight: "100vh", overflow: "scroll" }}>
             <MainAppBar />
@@ -285,16 +278,5 @@ const StatusContainer = styled.div<{ status: ProductStatus }>`
     width: 100px;
 `;
 
-function buildProduct(remoteProduct: RemoteProduct): Product {
-    return {
-        id: remoteProduct.id,
-        title: remoteProduct.title,
-        image: remoteProduct.image,
-        price: remoteProduct.price.toLocaleString("en-US", {
-            maximumFractionDigits: 2,
-            minimumFractionDigits: 2,
-        }),
-    };
-}
 
 const priceRegex = /^\d+(\.\d{1,2})?$/;
