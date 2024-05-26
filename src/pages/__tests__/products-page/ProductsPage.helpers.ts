@@ -89,7 +89,7 @@ export async function changeToNonAdminUser() {
     await userEvent.click(screen.getByRole("menuitem", { name: /non admin user/i }));
 }
 
-export async function tryOpenDialogToEditPrice(index: number)  {
+export async function tryOpenDialogToEditPrice(index: number) {
     const allRows = await screen.findAllByRole("row");
     const [, ...rows] = allRows;
     const row = rows[index];
@@ -99,4 +99,10 @@ export async function tryOpenDialogToEditPrice(index: number)  {
     const updatePriceMenu = await screen.findByRole("menuitem", { name: /update price/i });
 
     await userEvent.click(updatePriceMenu);
+}
+
+export async function verifySaveIsDisabled(dialog: HTMLElement) {
+    const dialogScope = within(dialog);
+    const saveButton = dialogScope.getByRole("button", { name: /save/i }).closest("button");
+    expect(saveButton).toBeDisabled();
 }

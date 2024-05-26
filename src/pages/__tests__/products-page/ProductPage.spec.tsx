@@ -8,13 +8,14 @@ import { givenAproducts, givenThereAreNoproducts } from "./ProductsPage.fixture.
 import {
     changeToNonAdminUser,
     openDialogToEditPrice,
-    savePrice, tryOpenDialogToEditPrice,
+    savePrice,
+    tryOpenDialogToEditPrice,
     typePrice,
     verifyDialog,
     verifyError,
     verifyHeader,
     verifyPriceAndStatusInRow,
-    verifyRows,
+    verifyRows, verifySaveIsDisabled,
     waitToTableIsLoaded,
 } from "./ProductsPage.helpers.ts";
 
@@ -75,6 +76,7 @@ describe("ProductsPage", () => {
             await typePrice(dialog, "-1");
 
             await verifyError(dialog, "Invalid price format");
+            await verifySaveIsDisabled(dialog);
         });
 
         test("Should show error for non number price", async () => {
@@ -86,6 +88,7 @@ describe("ProductsPage", () => {
             await typePrice(dialog, "notnumeric");
 
             await verifyError(dialog, "Only numbers are allowed");
+            await verifySaveIsDisabled(dialog);
         });
 
         test("Should show error for prices greater than maximum", async () => {
@@ -97,6 +100,7 @@ describe("ProductsPage", () => {
             await typePrice(dialog, "1000000");
 
             await verifyError(dialog, "The max possible price is 999.99");
+            await verifySaveIsDisabled(dialog);
         });
 
         test("should edit price correctly and mark status as active for a price greater than 0", async () => {
