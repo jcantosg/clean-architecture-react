@@ -15,7 +15,7 @@ import { useProducts } from "./useProducts.ts";
 import { StoreApi } from "../../data/api/StoreApi.ts";
 import { GetProductsUseCase } from "../../domain/GetProductsUseCase.ts";
 import { Product } from "../../domain/Product.ts";
-import {buildProduct, ProductApiRepository} from "../../data/ProductApiRepository.ts";
+import { buildProduct, ProductApiRepository } from "../../data/ProductApiRepository.ts";
 
 const baseColumn: Partial<GridColDef<Product>> = {
     disableColumnMenu: true,

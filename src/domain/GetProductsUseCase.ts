@@ -1,5 +1,5 @@
 import { Product } from "./Product.ts";
-import {ProductRepository} from "./ProductRepository.ts";
+import { ProductRepository } from "./ProductRepository.ts";
 
 export class GetProductsUseCase {
     constructor(private productRepository: ProductRepository) {}
@@ -7,5 +7,3 @@ export class GetProductsUseCase {
         return this.productRepository.getAll();
     }
 }
-
-

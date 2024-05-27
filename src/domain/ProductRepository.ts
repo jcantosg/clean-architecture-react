@@ -1,4 +1,4 @@
-import {Product} from "./Product.ts";
+import { Product } from "./Product.ts";
 
 export interface ProductRepository {
     getAll(): Promise<Product[]>;
