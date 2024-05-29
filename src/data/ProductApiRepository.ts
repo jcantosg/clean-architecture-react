@@ -1,4 +1,4 @@
-import {ProductRepository, ResourceNotFound} from "../domain/ProductRepository.ts";
+import { ProductRepository, ResourceNotFound } from "../domain/ProductRepository.ts";
 import { Product } from "../domain/Product.ts";
 import { RemoteProduct, StoreApi } from "./api/StoreApi.ts";
 
@@ -17,7 +17,6 @@ export class ProductApiRepository implements ProductRepository {
         } catch (error) {
             throw new ResourceNotFound(`Product with id ${productId} not found`);
         }
-
     }
 }
 

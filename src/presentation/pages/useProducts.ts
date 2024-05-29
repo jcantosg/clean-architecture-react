@@ -4,7 +4,7 @@ import { Product } from "../../domain/Product.ts";
 import { GetProductsUseCase } from "../../domain/GetProductsUseCase.ts";
 import { useAppContext } from "../context/useAppContext.ts";
 import { GetProductByIdUseCase } from "../../domain/GetProductByIdUseCase.ts";
-import {ResourceNotFound} from "../../domain/ProductRepository.ts";
+import { ResourceNotFound } from "../../domain/ProductRepository.ts";
 
 export function useProducts(
     getProductsUseCase: GetProductsUseCase,

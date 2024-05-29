@@ -1,6 +1,5 @@
 import { Product } from "./Product.ts";
 
-
 export class ResourceNotFound extends Error {}
 
 export interface ProductRepository {
