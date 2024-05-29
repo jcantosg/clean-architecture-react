@@ -1,10 +1,10 @@
-import {useCallback, useEffect, useState} from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useReload } from "../hooks/useReload.ts";
 import { Product } from "../../domain/Product.ts";
 import { GetProductsUseCase } from "../../domain/GetProductsUseCase.ts";
-import {buildProduct} from "../../data/ProductApiRepository.ts";
-import {StoreApi} from "../../data/api/StoreApi.ts";
-import {useAppContext} from "../context/useAppContext.ts";
+import { buildProduct } from "../../data/ProductApiRepository.ts";
+import { StoreApi } from "../../data/api/StoreApi.ts";
+import { useAppContext } from "../context/useAppContext.ts";
 
 export function useProducts(getProductsUseCase: GetProductsUseCase, storeApi: StoreApi) {
     const { currentUser } = useAppContext();

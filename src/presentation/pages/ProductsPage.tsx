@@ -8,7 +8,7 @@ import {
 import { Footer } from "../components/Footer.tsx";
 import { MainAppBar } from "../components/MainAppBar.tsx";
 import styled from "@emotion/styled";
-import {ChangeEvent, useEffect, useMemo, useState} from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { ConfirmationDialog } from "../components/ConfirmationDialog.tsx";
 import { useProducts } from "./useProducts.ts";
 import { StoreApi } from "../../data/api/StoreApi.ts";
@@ -30,11 +30,19 @@ function createGetProductsUseCase(): GetProductsUseCase {
 
 export const ProductsPage: React.FC = () => {
     const getProductsUseCase = useMemo(() => createGetProductsUseCase(), []);
-    const { products, reload, updatingQuantity, setEditingProduct, editingProduct, error, cancelEditPrice } = useProducts(getProductsUseCase, storeApi);
+    const {
+        products,
+        reload,
+        updatingQuantity,
+        setEditingProduct,
+        editingProduct,
+        error,
+        cancelEditPrice,
+    } = useProducts(getProductsUseCase, storeApi);
 
     /**
-    * @deprecated use error returned in useProducts instead of snackBarError
-    */
+     * @deprecated use error returned in useProducts instead of snackBarError
+     */
     const [snackBarError, setSnackBarError] = useState<string>();
     const [snackBarSuccess, setSnackBarSuccess] = useState<string>();
 
@@ -45,9 +53,7 @@ export const ProductsPage: React.FC = () => {
     }, [error]);
     //FIXME: User validation
 
-
     //FIXME: Close dialog
-
 
     //FIXME: Price validation
     function handleChangePrice(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
