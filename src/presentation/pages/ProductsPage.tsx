@@ -15,7 +15,7 @@ import { StoreApi } from "../../data/api/StoreApi.ts";
 import { GetProductsUseCase } from "../../domain/GetProductsUseCase.ts";
 import { Product } from "../../domain/Product.ts";
 import { ProductApiRepository } from "../../data/ProductApiRepository.ts";
-import {GetProductByIdUseCase} from "../../domain/GetProductByIdUseCase.ts";
+import { GetProductByIdUseCase } from "../../domain/GetProductByIdUseCase.ts";
 
 const baseColumn: Partial<GridColDef<Product>> = {
     disableColumnMenu: true,
@@ -30,7 +30,7 @@ function createGetProductsUseCase(): GetProductsUseCase {
 }
 
 function createGetProductByIdUseCase(): GetProductByIdUseCase {
-    return new GetProductByIdUseCase(storeApi)
+    return new GetProductByIdUseCase(storeApi);
 }
 
 export const ProductsPage: React.FC = () => {

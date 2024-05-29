@@ -3,9 +3,12 @@ import { useReload } from "../hooks/useReload.ts";
 import { Product } from "../../domain/Product.ts";
 import { GetProductsUseCase } from "../../domain/GetProductsUseCase.ts";
 import { useAppContext } from "../context/useAppContext.ts";
-import {GetProductByIdUseCase, ResourceNotFound} from "../../domain/GetProductByIdUseCase.ts";
+import { GetProductByIdUseCase, ResourceNotFound } from "../../domain/GetProductByIdUseCase.ts";
 
-export function useProducts(getProductsUseCase: GetProductsUseCase, getProductByIdUseCase: GetProductByIdUseCase) {
+export function useProducts(
+    getProductsUseCase: GetProductsUseCase,
+    getProductByIdUseCase: GetProductByIdUseCase
+) {
     const { currentUser } = useAppContext();
     const [reloadKey, reload] = useReload();
     const [products, setProducts] = useState<Product[]>([]);
@@ -30,13 +33,12 @@ export function useProducts(getProductsUseCase: GetProductsUseCase, getProductBy
                 try {
                     const product = await getProductByIdUseCase.execute(id);
                     setEditingProduct(product);
-
-                } catch(error) {
-                   if (error instanceof  ResourceNotFound) {
-                       setError(error.message);
-                   } else {
-                       setError("Unexpected error has ocurred");
-                   }
+                } catch (error) {
+                    if (error instanceof ResourceNotFound) {
+                        setError(error.message);
+                    } else {
+                        setError("Unexpected error has ocurred");
+                    }
                 }
             }
         },

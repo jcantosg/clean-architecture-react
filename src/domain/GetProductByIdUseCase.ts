@@ -1,6 +1,6 @@
 import { Product } from "./Product.ts";
-import {StoreApi} from "../data/api/StoreApi.ts";
-import {buildProduct} from "../data/ProductApiRepository.ts";
+import { StoreApi } from "../data/api/StoreApi.ts";
+import { buildProduct } from "../data/ProductApiRepository.ts";
 
 export class ResourceNotFound extends Error {}
 export class GetProductByIdUseCase {
@@ -9,7 +9,6 @@ export class GetProductByIdUseCase {
         try {
             const remoteProduct = await this.storeApi.get(productId);
             return buildProduct(remoteProduct);
-
         } catch (error) {
             throw new ResourceNotFound(`Product with id ${productId} not found`);
         }
